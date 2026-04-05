@@ -4,7 +4,7 @@
 const CONFIG = {
     SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbymRy-M5v0fVLWUjw4IXYhd1oIR2ZvnP_Dzr_iGR-Th0cMIpmE2ntGeujWYH7-C6NHIzA/exec',
     SHEET_URL:  'https://docs.google.com/spreadsheets/d/1cXlYiTMzcRP1BCj9mt1JXoK_pjgWbRtDEEQUPMg2HPs/edit?usp=sharing',
-    CSV_FILE:   'cascading_data.csv',
+    CSV_FILE:   'cascading_data1.csv',
     ADMIN_USER: 'admin',
     ADMIN_PASS: 'admin123'
 };
@@ -27,9 +27,9 @@ const state = {
     isAdmin:        false
 };
 
-let ALL_LOCATION_DATA = {};
-let USER_MAP          = {};
-let LOCATION_DATA     = {};
+var ALL_LOCATION_DATA = {};
+var USER_MAP      = {};
+var LOCATION_DATA  = {};
 let deferredPrompt    = null;
 
 // ============================================
@@ -408,6 +408,8 @@ function loadLocationData() {
 
                 // Expose for cascading dropdowns
                 LOCATION_DATA = ALL_LOCATION_DATA;
+                window.ALL_LOCATION_DATA = ALL_LOCATION_DATA;   // ai_agent.js reads window.ALL_LOCATION_DATA
+                window.LOCATION_DATA     = ALL_LOCATION_DATA;
 
                 const dCount = Object.keys(ALL_LOCATION_DATA).length;
                 console.log(`[CSV] ${loaded} rows loaded → ${dCount} district(s). Skipped: ${skipped}`);
