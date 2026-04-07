@@ -122,7 +122,7 @@ function showBanner()        {}
 function hideBanner()        { window.pwaCloseBanner(); }
 function showInstallSuccess(){ _pwaSuccess(); }
 function syncNavInstallBtn() {}
-function injectInstallBanner(){ _pwaInjectBanner(); }
+function injectInstallBanner(){ _pwaInjectBanner(); }    
 
 const CONFIG = {
     SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbymRy-M5v0fVLWUjw4IXYhd1oIR2ZvnP_Dzr_iGR-Th0cMIpmE2ntGeujWYH7-C6NHIzA/exec',
