@@ -78,10 +78,7 @@ if ('serviceWorker' in navigator) {
                     });
                 });
 
-                // When new SW takes control — reload to get fresh files
-                navigator.serviceWorker.addEventListener('controllerchange', () => {
-                    window.location.reload();
-                });
+
                 cacheImagesForOffline();
             })
             .catch(err => console.error('[PWA] SW registration failed:', err));
