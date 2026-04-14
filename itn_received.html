@@ -302,19 +302,6 @@
                     <button class="btn btn-outline" id="stopScanBtn" style="display:none;color:white;border-color:rgba(255,255,255,0.5);">⏹ STOP</button>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header gold">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                    <span>OR ENTER DISPATCH ID MANUALLY</span>
-                </div>
-                <div class="card-body">
-                    <div style="display:flex;gap:8px;">
-                        <input class="input" id="manualDispId" placeholder="e.g. DSP-20250311-1234" style="flex:1;">
-                        <button class="btn btn-gold" id="manualLookupBtn">LOOKUP</button>
-                    </div>
-                    <p style="font-size:0.72rem;color:#888;margin-top:6px;">Dispatch ID is printed on the delivery receipt.</p>
-                </div>
-            </div>
         </div>
 
         <!-- STEP 2: VERIFY COUNT -->
@@ -665,8 +652,6 @@ function processQR(raw) {
     showToast('✅ QR scanned — verify details below', 'success');
 }
 
-document.getElementById('manualLookupBtn').addEventListener('click', () => lookupDispatch());
-document.getElementById('manualDispId').addEventListener('keydown', e => { if(e.key==='Enter') lookupDispatch(); });
 
 function lookupDispatch() {
     const id = document.getElementById('manualDispId').value.trim().toUpperCase();
@@ -708,13 +693,12 @@ function normaliseDispatch(d) {
 }
 
 function prefillForm(data) {
-    // ── Facility match check — PHU in QR must match user's PHU from login ─────
-    var dispatchDistrict = (data.district || '').trim();
-    var dispatchPHU      = (data.phu      || '').trim();
-    var userDistrict     = (currentUser && currentUser.district || '').trim();
+    // ── Facility match — PHU in dispatch QR must match user login PHU ──
+    var dispatchPHU = (data.phu || '').trim().toLowerCase();
+    var userPHU     = (currentUser && currentUser.phu || '').trim().toLowerCase();
 
-    function getOrShowErr(msg) {
-        showToast('⛔ ' + msg, 'error');
+    if (dispatchPHU && userPHU && dispatchPHU !== userPHU) {
+        showToast('⛔ Wrong facility — this delivery is for ' + data.phu + ', not your facility.', 'error');
         var errDiv = document.getElementById('phuMismatchErr');
         if (!errDiv) {
             errDiv = document.createElement('div');
@@ -726,44 +710,13 @@ function prefillForm(data) {
         errDiv.innerHTML = '<div style="display:flex;gap:12px;align-items:flex-start;">'
             + '<span style="font-size:2rem;">⛔</span>'
             + '<div><strong style="color:#B03A2E;font-size:1rem;">WRONG DELIVERY — DO NOT ACCEPT</strong>'
-            + '<p style="color:#555;font-size:0.82rem;margin-top:4px;">' + msg + '</p></div></div>';
+            + '<p style="color:#555;font-size:0.82rem;margin-top:4px;">This dispatch is for <strong>'
+            + (data.phu || '—') + '</strong>. You are logged in as <strong>'
+            + (currentUser && currentUser.phu || '—') + '</strong>. Contact your supervisor.</p></div></div>';
         scannedData = null;
-    }
-
-    // 1. District must match
-    if (dispatchDistrict && userDistrict &&
-        dispatchDistrict.toLowerCase() !== userDistrict.toLowerCase()) {
-        getOrShowErr(
-            'This dispatch is for <strong>' + dispatchDistrict + '</strong> district. ' +
-            'You are logged in from <strong>' + userDistrict + '</strong>. ' +
-            'Contact your supervisor.'
-        );
         return;
     }
 
-    // 2. PHU must exist in cascade data for this district
-    if (dispatchDistrict && dispatchPHU && Object.keys(locationData).length > 0) {
-        // Find district in locationData (case-insensitive)
-        var distKey = Object.keys(locationData).find(function(k) {
-            return k.toLowerCase() === dispatchDistrict.toLowerCase();
-        });
-        if (distKey) {
-            // Flatten all PHUs for this district
-            var allPHUs = [];
-            Object.values(locationData[distKey]).forEach(function(arr) {
-                arr.forEach(function(p) { allPHUs.push(p.toLowerCase()); });
-            });
-            if (allPHUs.indexOf(dispatchPHU.toLowerCase()) === -1) {
-                getOrShowErr(
-                    '<strong>' + dispatchPHU + '</strong> is not a known PHU in <strong>' + dispatchDistrict + '</strong>. ' +
-                    'This QR may be for a different district or may be invalid. Do not accept this delivery.'
-                );
-                return;
-            }
-        }
-    }
-
-    // Hide mismatch error if previously shown
     var errDiv = document.getElementById('phuMismatchErr');
     if (errDiv) errDiv.style.display = 'none';
 
@@ -778,8 +731,8 @@ function prefillForm(data) {
     document.getElementById('qtyIG2Expected').textContent   = data.ig2   ?? '—';
     document.getElementById('qtyPBOExpected').textContent   = data.pbo   ?? '—';
     document.getElementById('qtyTotalExpected').textContent = data.total ?? '—';
-    document.getElementById('bannerTitle').textContent = `PHU: ${data.phu || currentUser?.phu || '—'}`;
-    document.getElementById('bannerSub').textContent   = `Dispatched ${data.total} ITNs on ${data.date||'—'} by ${data.driverName||'—'}`;
+    document.getElementById('bannerTitle').textContent = 'PHU: ' + (data.phu || currentUser?.phu || '—');
+    document.getElementById('bannerSub').textContent   = 'Dispatched ' + (data.total||0) + ' ITNs on ' + (data.date||'—') + ' by ' + (data.driverName||'—');
     goToStep(2);
 }
 
