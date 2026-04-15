@@ -1,7 +1,7 @@
 // ============================================================
 //  SBD 2026 — ITN Distribution Survey · Service Worker
 //  BUMP THIS VERSION STRING every time you upload new files:
-const CACHE_VERSION = 'sbd-2026-v19';
+const CACHE_VERSION = 'sbd-2026-v21';
 // ============================================================
 
 // ── YOUR MAIN APP FILES ───────────────────────────────────────
@@ -34,7 +34,8 @@ const MODULE_FILES = [
   './device_tracking.html',
   './attendance_payment.html',
   // ── CSV data files ─────────────────────────────────────────
-  './dms_cascading.csv',          // itn_movement + itn_received — PHU locations
+  './dms_cascading.csv',
+  './cascading_data.csv',
 ];
 
 // ── CDN LIBRARIES ─────────────────────────────────────────────
@@ -68,7 +69,10 @@ const OPTIONAL_FILES = [
   './NMCP.png',
   './infographics.png',
   './logo_usaid.png',
+  './usa.jpg',
   './logo_gf.png',
+  './global_fund.png',
+  './global_fund.pgn',
   './logo_mohs.png',
   './logo_nmcp.png',
   './logo_pmi.png',
