@@ -435,7 +435,7 @@
                         </div>
                         <div class="partner-logo-card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
                             <div class="partner-logo-img" style="width:90px;height:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                                <img src="logo_mohs.png" alt="MOH"
+                                <img src="moh_logo.jpg" alt="MOH"
                                      style="max-width:100%;max-height:100%;object-fit:contain;display:block;"
                                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
                                      onload="this.style.display='block';this.nextElementSibling.style.display='none';">
@@ -445,7 +445,7 @@
                         </div>
                         <div class="partner-logo-card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
                             <div class="partner-logo-img" style="width:90px;height:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                                <img src="logo_nmcp.png" alt="NMCP"
+                                <img src="NMCP.png" alt="NMCP"
                                      style="max-width:100%;max-height:100%;object-fit:contain;display:block;"
                                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
                                      onload="this.style.display='block';this.nextElementSibling.style.display='none';">
@@ -455,7 +455,7 @@
                         </div>
                         <div class="partner-logo-card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
                             <div class="partner-logo-img" style="width:90px;height:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                                <img src="logo_pmi.png" alt="PMI Evolve"
+                                <img src="pmi_evolve.png" alt="PMI Evolve"
                                      style="max-width:100%;max-height:100%;object-fit:contain;display:block;"
                                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
                                      onload="this.style.display='block';this.nextElementSibling.style.display='none';">
@@ -465,7 +465,7 @@
                         </div>
                         <div class="partner-logo-card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
                             <div class="partner-logo-img" style="width:90px;height:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                                <img src="logo_mbsse.png" alt="MBSSE"
+                                <img src="mbsse.png" alt="MBSSE"
                                      style="max-width:100%;max-height:100%;object-fit:contain;display:block;"
                                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
                                      onload="this.style.display='block';this.nextElementSibling.style.display='none';">
@@ -726,10 +726,6 @@
                             <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6M3 12a9 9 0 0115.36-6.36L21 8M3 22v-6h6M21 12a9 9 0 01-15.36 6.36L3 16"/></svg>
                             <span class="tab-label">FORCE SYNC</span>
                         </button>
-                        <button class="app-tab" style="background:linear-gradient(145deg,#17a2b8,#117a8b);" onclick="window.open('submissions_summary.html', '_blank')" title="Submissions Summary">
-                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            <span class="tab-label">SUBMISSIONS</span>
-                        </button>
 
                         <!-- ── UPDATE — always last ── -->
 
@@ -773,13 +769,13 @@
                     // ╚══════════════════════════════════════════════════════╝
                     const TAB_PASSWORDS = {
                         // ── Core tabs ──────────────────────────────────────
-                        viewData:       'admin123',   // VIEW DATA
+                        viewData:       '987654321',   // VIEW DATA
                         download:       'admin123',   // DOWNLOAD
                         analysis:       'admin123',   // ANALYSIS
                         ai:             'admin123',   // AI AGENT
                         // ── Module tabs ────────────────────────────────────
                         monitoring:     'admin123',   // MONITORING
-                        reconciliation: 'admin123',   // ITN RECONCILIATION
+                        reconciliation: 'admin1233',   // ITN RECONCILIATION
                         schoolqr:       'admin123',   // SCHOOL QR
                         idcards:        'admin123',   // ID CARDS
                         devicetag:      'admin123',   // DEVICE TAG
@@ -1442,8 +1438,7 @@
         { id:'itnreceived',    file:'itn_received.html',         label:'ITN Received',            icon:'M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3',                                                    color:'#2196F3', dark:'#1565C0' },
         { id:'attendance',     file:'attendance_payment.html',   label:'Attendance & Payment',   icon:'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75', color:'#c8991a', dark:'#a07a10' },
         { id:'report',         file:'distribution_report.html',  label:'Distribution Report',    icon:'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8',                          color:'#17becf', dark:'#109aaa' },
-        { id:'forcesync',      file:'force_sync.html',           label:'Force Sync',             icon:'M21 2v6h-6M3 12a9 9 0 0115.36-6.36L21 8M3 22v-6h6M21 12a9 9 0 01-15.36 6.36L3 16',                                  color:'#28a745', dark:'#1e7a32' },
-        { id:'itntargets',     file:'itn_targets.html',          label:'ITN Targets',            icon:'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999H6.6A2 2 0 003 15z',                                                              color:'#059669', dark:'#047857' }
+        { id:'forcesync',      file:'force_sync.html',           label:'Force Sync',             icon:'M21 2v6h-6M3 12a9 9 0 0115.36-6.36L21 8M3 22v-6h6M21 12a9 9 0 01-15.36 6.36L3 16',                                  color:'#28a745', dark:'#1e7a32' }
     ];
 
     // Sub-tab content per module (video, ppt, tool)
